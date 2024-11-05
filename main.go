@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
-	"github.com/0z-cryptik/randomJokesAPI/jokes"
-	"encoding/json"
+	"github.com/0z-cryptik/randomJokesAPI/handlers"
+	"math/rand"
+	"time"
 )
 
 type ResponseStruct struct {
@@ -13,24 +13,10 @@ type ResponseStruct struct {
 }
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
-		response := ResponseStruct{
-			Ok: true,
-			Joke: jokes.Jokes[0],
-		}
+	// seed the random number generator
+	rand.Seed(time.Now().UnixNano())
 
-		responseJson, err := json.Marshal(response)
-
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Error: %v", err), http.StatusInternalServerError)
-			fmt.Printf("some error %v\n", err)
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-
-		w.Write(responseJson)
-	})
+	http.HandleFunc("/", handlers.Handler)
 
 	http.ListenAndServe(":8080", nil)
 }
