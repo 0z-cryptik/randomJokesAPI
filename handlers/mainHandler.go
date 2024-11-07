@@ -19,7 +19,7 @@ func Handler(w http.ResponseWriter, r *http.Request){
 
 		if err != nil {
 			http.Error(w, "An error occured, please try again", http.StatusInternalServerError)
-		fmt.Printf("Error %v\n", err)
+			fmt.Printf("Error %v\n", err)
 			return
 		}
 
