@@ -9,11 +9,6 @@ import (
 	"github.com/0z-cryptik/randomJokesAPI/handlers"
 )
 
-type ResponseStruct struct {
-	Ok bool
-	Joke string
-}
-
 func main() {
 	// seed the random number generator
 	rand.Seed(time.Now().UnixNano())
